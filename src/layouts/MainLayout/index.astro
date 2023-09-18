@@ -1,4 +1,5 @@
 ---
+import { UMAMI_SRC, UMAMI_WEBSITE_ID, UMAMI_DOMAINS } from "@/constants/env";
 import Header from "./components/Header.astro";
 import Footer from "./components/Footer.astro";
 
@@ -13,6 +14,13 @@ import "@/styles/index.css";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Leeboor</title>
+
+    <script
+      is:inline
+      async
+      src={UMAMI_SRC}
+      data-website-id={UMAMI_WEBSITE_ID}
+      data-domains={UMAMI_DOMAINS}></script>
   </head>
   <body class="bg-red-100">
     <Header />
