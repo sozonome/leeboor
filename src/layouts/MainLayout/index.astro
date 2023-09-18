@@ -3,6 +3,7 @@ import Header from "./components/Header.astro";
 import Footer from "./components/Footer.astro";
 
 import "@/styles/globals.css";
+import "@/styles/index.css";
 ---
 
 <html lang="en">
@@ -15,7 +16,9 @@ import "@/styles/globals.css";
   </head>
   <body class="bg-red-100">
     <Header />
-    <main class="p-4">
+    <main
+      class="p-4 mx-auto max-w-3xl flex flex-col min-h-[75dvh] justify-center"
+    >
       <slot />
     </main>
     <Footer />

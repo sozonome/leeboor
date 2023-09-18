@@ -1,8 +1,35 @@
 ---
 import MainLayout from "@/layouts/MainLayout/index.astro";
-import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import { getHolidayEntries } from "@/services/api/getHolidayList";
+import { dateFormat } from "@/utils/dateFormat";
+
+const today = new Date();
+
+const holidays = await getHolidayEntries({
+  month: today.getMonth() + 1,
+  year: today.getFullYear(),
+});
+
+const closestHoliday = holidays[0];
 ---
 
 <MainLayout>
-  <Button>Hi!</Button>
+  <Card className="bg-red-50">
+    <CardHeader>
+      <CardDescription className="text-xs">
+        Hari Libur Terdekat Berikutnya
+      </CardDescription>
+      <CardTitle className="text-xl lg:text-2xl">{closestHoliday.holiday_name}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p class="text-sm">{dateFormat(closestHoliday.holiday_date)}</p>
+    </CardContent>
+  </Card>
 </MainLayout>
