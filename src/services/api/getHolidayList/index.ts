@@ -4,5 +4,5 @@ import type {
   GetHolidayEntriesResponse
 } from "./types";
 
-export const getHolidayEntries = (params?: GetHolidayEntriesParams) =>
+export const getHolidays = (params?: GetHolidayEntriesParams) =>
   fetcher<GetHolidayEntriesResponse>("/", { params });

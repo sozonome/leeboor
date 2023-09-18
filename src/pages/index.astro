@@ -1,4 +1,7 @@
 ---
+import { format } from "date-fns";
+import id from "date-fns/locale/id";
+
 import MainLayout from "@/layouts/MainLayout/index.astro";
 import {
   Card,
@@ -7,17 +10,11 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { getHolidayEntries } from "@/services/api/getHolidayList";
-import { dateFormat } from "@/utils/dateFormat";
+import { getUpcomingHolidays } from "@/services/api/getUpcomingHolidays";
 
-const today = new Date();
+const upcomingHolidays = await getUpcomingHolidays();
 
-const holidays = await getHolidayEntries({
-  month: today.getMonth() + 1,
-  year: today.getFullYear(),
-});
-
-const closestHoliday = holidays[0];
+const closestHoliday = upcomingHolidays[0];
 ---
 
 <MainLayout>
@@ -26,10 +23,18 @@ const closestHoliday = holidays[0];
       <CardDescription className="text-xs">
         Hari Libur Terdekat Berikutnya
       </CardDescription>
-      <CardTitle className="text-xl lg:text-2xl">{closestHoliday.holiday_name}</CardTitle>
+      <CardTitle className="text-xl lg:text-2xl">
+        {closestHoliday.holiday_name}
+      </CardTitle>
     </CardHeader>
     <CardContent>
-      <p class="text-sm">{dateFormat(closestHoliday.holiday_date)}</p>
+      <p class="text-sm">
+        {
+          format(new Date(closestHoliday.holiday_date), "eeee, dd MMMM yyyy", {
+            locale: id,
+          })
+        }
+      </p>
     </CardContent>
   </Card>
 </MainLayout>
