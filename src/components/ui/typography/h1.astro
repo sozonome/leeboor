@@ -1,0 +1,9 @@
+---
+import { cn } from "@/styles/utils";
+
+const { className } = Astro.props
+---
+
+<h1 class={cn("scroll-m-20 font-extrabold tracking-tight lg:text-5xl", className)}>
+  <slot />
+</h1>
