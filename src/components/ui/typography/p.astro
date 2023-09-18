@@ -1,9 +1,9 @@
 ---
-import {cn} from '@/styles/utils';
+import { cn } from "@/styles/utils";
 
-const {className} = Astro.props;
+const { className } = Astro.props;
 ---
 
-<p class={cn("leading-7", className)}>
+<p class={cn("leading-7 text-gray-500", className)}>
   <slot />
 </p>

@@ -1,9 +1,4 @@
 ---
-import { format } from "date-fns";
-// date-fns #2629 & #2694
-// https://github.com/date-fns/date-fns/issues/2964#issuecomment-1397856471
-import id from "date-fns/locale/id/index";
-
 import MainLayout from "@/layouts/MainLayout/index.astro";
 import {
   Card,
@@ -13,10 +8,13 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { getUpcomingHolidays } from "@/services/api/getUpcomingHolidays";
+import { inferHoliday } from "@/pages/_utils";
+import TypographyP from "@/components/ui/typography/p.astro";
 
 const upcomingHolidays = await getUpcomingHolidays();
 
 const closestHoliday = upcomingHolidays[0];
+const parsedClosestHoliday = inferHoliday(closestHoliday.holiday_date);
 ---
 
 <MainLayout>
@@ -29,14 +27,13 @@ const closestHoliday = upcomingHolidays[0];
         {closestHoliday.holiday_name}
       </CardTitle>
     </CardHeader>
-    <CardContent>
-      <p class="text-sm">
-        {
-          format(new Date(closestHoliday.holiday_date), "eeee, dd MMMM yyyy", {
-            locale: id,
-          })
-        }
-      </p>
+    <CardContent className="text-sm">
+      <TypographyP>
+        {parsedClosestHoliday.formattedDate}
+      </TypographyP>
+      <TypographyP className="text-red-500 text-xs">
+        {parsedClosestHoliday.commentary}
+      </TypographyP>
     </CardContent>
   </Card>
 </MainLayout>
