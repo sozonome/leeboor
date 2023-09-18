@@ -1,5 +1,7 @@
 import { differenceInDays, format } from "date-fns";
-import id from "date-fns/locale/id";
+// date-fns #2629 & #2694
+// https://github.com/date-fns/date-fns/issues/2964#issuecomment-1397856471
+import id from "date-fns/locale/id/index";
 
 export const inferHoliday = (holidayDate: Date | string) => {
   const remainingDays = differenceInDays(new Date(holidayDate), new Date());
