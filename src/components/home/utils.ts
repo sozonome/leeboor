@@ -1,5 +1,5 @@
-import { formatDate } from "@/utils/formatDate";
-import { differenceInDays } from "date-fns";
+import { formatDate } from '@/utils/formatDate';
+import { differenceInDays } from 'date-fns';
 
 export const inferHoliday = (holidayDate: Date | string) => {
   const remainingDays = differenceInDays(new Date(holidayDate), new Date());
@@ -14,7 +14,7 @@ export const inferHoliday = (holidayDate: Date | string) => {
       return `Wah, ${remainingDays} hari lagi!`;
     }
 
-    return "Besok!";
+    return 'Besok!';
   };
 
   return { remainingDays, formattedDate, commentary: getCommentary() };

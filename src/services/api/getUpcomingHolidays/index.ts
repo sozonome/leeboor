@@ -1,6 +1,6 @@
-import { compareAsc, isAfter } from "date-fns";
+import { compareAsc, isAfter } from 'date-fns';
 
-import { getHolidays } from "@/services/api/getHolidayList";
+import { getHolidays } from '@/services/api/getHolidayList';
 
 export const getUpcomingHolidays = async () => {
   const holidays = await getHolidays();
