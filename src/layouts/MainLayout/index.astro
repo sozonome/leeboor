@@ -1,19 +1,19 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 
-import { UMAMI_SRC, UMAMI_WEBSITE_ID, UMAMI_DOMAINS } from "@/constants/env";
-import Header from "./components/Header.astro";
-import Footer from "./components/Footer.astro";
+import { UMAMI_SRC, UMAMI_WEBSITE_ID, UMAMI_DOMAINS } from '@/constants/env';
+import Header from './components/Header.astro';
+import Footer from './components/Footer.astro';
 
-import "@/styles/globals.css";
-import "@/styles/index.css";
-import { cn } from "@/styles/utils";
+import '@/styles/globals.css';
+import '@/styles/index.css';
+import { cn } from '@/styles/utils';
 
 type Props = {
   mainClassName?: string;
-}
+};
 
-const {mainClassName} = Astro.props;
+const { mainClassName } = Astro.props;
 ---
 
 <html lang="en">
@@ -23,6 +23,7 @@ const {mainClassName} = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Leeboor</title>
+    <meta name="description" content="Kapan tanggal merah berikutnya?" />
 
     <script
       is:inline
@@ -31,12 +32,15 @@ const {mainClassName} = Astro.props;
       data-website-id={UMAMI_WEBSITE_ID}
       data-domains={UMAMI_DOMAINS}></script>
 
-      <ViewTransitions />
+    <ViewTransitions />
   </head>
   <body class="bg-red-100">
     <Header />
     <main
-      class={cn("p-4 mx-auto max-w-3xl flex flex-col min-h-[75dvh] justify-center", mainClassName)}
+      class={cn(
+        'p-4 mx-auto max-w-3xl flex flex-col min-h-[75dvh] justify-center',
+        mainClassName
+      )}
     >
       <slot />
     </main>
