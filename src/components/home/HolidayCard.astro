@@ -1,0 +1,37 @@
+---
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import TypographyP from "@/components/ui/typography/p.astro";
+import type { HolidayEntry } from "@/services/api/getHolidayList/types";
+
+import { inferHoliday } from "./utils";
+
+type Props = {
+  closestHoliday: HolidayEntry;
+};
+
+const { closestHoliday } = Astro.props;
+const parsedClosestHoliday = inferHoliday(closestHoliday.holiday_date);
+---
+
+<Card className="bg-red-50 max-w-md mx-auto">
+  <CardHeader>
+    <CardDescription className="text-xs">
+      Hari Libur Terdekat Berikutnya
+    </CardDescription>
+    <CardTitle className="text-xl lg:text-2xl">
+      {closestHoliday.holiday_name}
+    </CardTitle>
+  </CardHeader>
+  <CardContent className="text-sm">
+    <TypographyP>{parsedClosestHoliday.formattedDate}</TypographyP>
+    <TypographyP className="text-red-500 text-xs">
+      {parsedClosestHoliday.commentary}
+    </TypographyP>
+  </CardContent>
+</Card>

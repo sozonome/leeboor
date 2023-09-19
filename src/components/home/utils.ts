@@ -1,7 +1,5 @@
-import { differenceInDays, format } from "date-fns";
-// date-fns #2629 & #2694
-// https://github.com/date-fns/date-fns/issues/2964#issuecomment-1397856471
-import id from "date-fns/locale/id/index";
+import { formatDate } from "@/utils/formatDate";
+import { differenceInDays } from "date-fns";
 
 export const inferHoliday = (holidayDate: Date | string) => {
   const remainingDays = differenceInDays(new Date(holidayDate), new Date());
@@ -21,8 +19,3 @@ export const inferHoliday = (holidayDate: Date | string) => {
 
   return { remainingDays, formattedDate, commentary: getCommentary() };
 };
-
-export const formatDate = (date: Date | string) =>
-  format(new Date(date), "eeee, dd MMMM yyyy", {
-    locale: id,
-  });
