@@ -5,13 +5,7 @@ import id from "date-fns/locale/id/index";
 
 export const inferHoliday = (holidayDate: Date | string) => {
   const remainingDays = differenceInDays(new Date(holidayDate), new Date());
-  const formattedDate = formatDate(
-    new Date(holidayDate),
-    "eeee, dd MMMM yyyy",
-    {
-      locale: id,
-    }
-  );
+  const formattedDate = formatDate(holidayDate);
 
   const getCommentary = () => {
     if (remainingDays > 3) {
