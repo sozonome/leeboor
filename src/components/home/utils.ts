@@ -1,8 +1,11 @@
 import { formatDate } from '@/utils/formatDate';
-import { differenceInDays } from 'date-fns';
+import { differenceInDays, startOfDay } from 'date-fns';
 
 export const inferHoliday = (holidayDate: Date | string) => {
-  const remainingDays = differenceInDays(new Date(holidayDate), new Date());
+  const remainingDays = differenceInDays(
+    startOfDay(new Date(holidayDate)),
+    startOfDay(new Date())
+  );
   const formattedDate = formatDate(holidayDate);
 
   const getCommentary = () => {
