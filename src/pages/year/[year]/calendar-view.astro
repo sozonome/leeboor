@@ -1,0 +1,29 @@
+---
+import { Calendar } from '@/components/ui/calendar';
+import MainLayout from '@/layouts/MainLayout/index.astro';
+import { setMonth, setYear } from 'date-fns';
+
+const { year } = Astro.params;
+
+const today = new Date();
+const maxYear = today.getFullYear() + 1;
+const minYear = today.getFullYear() - 8;
+
+if (Number(year) > maxYear || Number(year) < minYear) {
+  return Astro.redirect('/404');
+}
+---
+
+<MainLayout mainClassName="max-w-4xl">
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {
+      Array.from(Array(12)).map((_, index) => (
+        <Calendar
+          className="rounded-md border shadow bg-red-50 max-w-[250px] mx-auto"
+          disableNavigation
+          month={setMonth(setYear(new Date(), Number(year)), index)}
+        />
+      ))
+    }
+  </div>
+</MainLayout>

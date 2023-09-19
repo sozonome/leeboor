@@ -1,9 +1,10 @@
 ---
-import MainLayout from "@/layouts/MainLayout/index.astro";
-import { getUpcomingHolidays } from "@/services/api/getUpcomingHolidays";
-import { formatDate } from "@/utils/formatDate";
-import TypographyP from "@/components/ui/typography/p.astro";
-import HolidayCard from "@/components/home/HolidayCard.astro";
+import MainLayout from '@/layouts/MainLayout/index.astro';
+import { getUpcomingHolidays } from '@/services/api/getUpcomingHolidays';
+import { formatDate } from '@/utils/formatDate';
+import TypographyP from '@/components/ui/typography/p.astro';
+import HolidayCard from '@/components/home/HolidayCard.astro';
+import NavigateButton from '@/components/home/NavigateButton'
 
 const upcomingHolidays = await getUpcomingHolidays();
 const closestHoliday = upcomingHolidays[0];
@@ -16,5 +17,9 @@ const closestHoliday = upcomingHolidays[0];
     <TypographyP className="text-center text-xs opacity-80">
       Hari ini: {formatDate(new Date())}
     </TypographyP>
+
+    <div class="mx-auto">
+      <NavigateButton />
+    </div>
   </div>
 </MainLayout>

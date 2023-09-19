@@ -1,0 +1,70 @@
+---
+import groupBy from 'lodash/groupBy';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import MainLayout from '@/layouts/MainLayout/index.astro';
+import { getHolidays } from '@/services/api/getHolidayList';
+import { getMonth, set, setYear } from 'date-fns';
+import { formatDate } from '@/utils/formatDate';
+import TypographyP from '@/components/ui/typography/p.astro';
+import { cn } from '@/styles/utils';
+
+const { year: yearParam } = Astro.params;
+
+const today = new Date();
+const maxYear = today.getFullYear() + 1;
+const minYear = today.getFullYear() - 8;
+
+const year = Number(yearParam);
+
+if (year > maxYear || year < minYear) {
+  return Astro.redirect('/404');
+}
+
+const holidays = await getHolidays({ year });
+
+const holidayWithMonths = holidays.map((item) => ({
+  ...item,
+  month: getMonth(new Date(item.holiday_date)),
+}));
+
+const groupedHolidays = groupBy(holidayWithMonths, 'month');
+---
+
+<MainLayout mainClassName="max-w-4xl flex flex-col gap-4 p-4 max-w-5xl">
+  <!-- <Calendar
+    className="rounded-md border shadow bg-red-50 max-w-[250px] mx-auto"
+    disableNavigation
+    month={setYear(new Date(), Number(year))}
+  /> -->
+
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {
+      Object.entries(groupedHolidays).map(([month, monthHolidays]) => (
+        <Card className="w-full max-w-md mx-auto bg-red-50">
+          <CardHeader>
+            <CardTitle>
+              {formatDate(
+                set(new Date(), { month: Number(month), year }),
+                'MMMM yyyy'
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-4">
+            {monthHolidays.map((holiday) => (
+              <div class="flex flex-col justify-start">
+                <TypographyP className="text-xs">
+                  {formatDate(holiday.holiday_date)}
+                </TypographyP>
+                <TypographyP
+                  className={cn(holiday.is_national_holiday && 'text-red-400')}
+                >
+                  {holiday.holiday_name}
+                </TypographyP>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      ))
+    }
+  </div>
+</MainLayout>

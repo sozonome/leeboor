@@ -1,10 +1,19 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+
 import { UMAMI_SRC, UMAMI_WEBSITE_ID, UMAMI_DOMAINS } from "@/constants/env";
 import Header from "./components/Header.astro";
 import Footer from "./components/Footer.astro";
 
 import "@/styles/globals.css";
 import "@/styles/index.css";
+import { cn } from "@/styles/utils";
+
+type Props = {
+  mainClassName?: string;
+}
+
+const {mainClassName} = Astro.props;
 ---
 
 <html lang="en">
@@ -21,11 +30,13 @@ import "@/styles/index.css";
       src={UMAMI_SRC}
       data-website-id={UMAMI_WEBSITE_ID}
       data-domains={UMAMI_DOMAINS}></script>
+
+      <ViewTransitions />
   </head>
   <body class="bg-red-100">
     <Header />
     <main
-      class="p-4 mx-auto max-w-3xl flex flex-col min-h-[75dvh] justify-center"
+      class={cn("p-4 mx-auto max-w-3xl flex flex-col min-h-[75dvh] justify-center", mainClassName)}
     >
       <slot />
     </main>
