@@ -4,15 +4,36 @@ import { getUpcomingHolidays } from '@/services/api/getUpcomingHolidays';
 import { formatDate } from '@/utils/formatDate';
 import TypographyP from '@/components/ui/typography/p.astro';
 import HolidayCard from '@/components/home/HolidayCard.astro';
-import NavigateButton from '@/components/home/NavigateButton'
+import NavigateButton from '@/components/home/NavigateButton';
+import { getHolidays } from '@/services/api/getHolidayList';
+import { getTodayHoliday } from '@/services/api/getTodayHoliday';
 
-const upcomingHolidays = await getUpcomingHolidays();
+const holidays = await getHolidays();
+
+const todayHoliday = await getTodayHoliday(holidays);
+
+const upcomingHolidays = await getUpcomingHolidays(holidays);
 const closestHoliday = upcomingHolidays[0];
 ---
 
 <MainLayout>
   <div class="flex flex-col gap-2 sm:scale-125 lg:scale-150">
-    <HolidayCard closestHoliday={closestHoliday} />
+    {
+      todayHoliday ? (
+        <HolidayCard
+          data={todayHoliday}
+          title="Hari Ini"
+          containerClassName="text-center"
+        />
+      ) : null
+    }
+
+    <HolidayCard
+      data={closestHoliday}
+      containerClassName={todayHoliday
+        ? 'text-center bg-transparent border-none shadow-none'
+        : undefined}
+    />
 
     <TypographyP className="text-center text-xs opacity-80">
       Hari ini: {formatDate(new Date())}

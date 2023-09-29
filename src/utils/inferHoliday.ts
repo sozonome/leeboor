@@ -17,7 +17,11 @@ export const inferHoliday = (holidayDate: Date | string) => {
       return `Wah, ${remainingDays} hari lagi!`;
     }
 
-    return 'Besok!';
+    if (remainingDays === 1) {
+      return 'Besok!';
+    }
+
+    return '';
   };
 
   return { remainingDays, formattedDate, commentary: getCommentary() };

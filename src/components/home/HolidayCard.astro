@@ -5,27 +5,30 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import TypographyP from "@/components/ui/typography/p.astro";
-import type { HolidayEntry } from "@/services/api/getHolidayList/types";
+} from '@/components/ui/card';
+import TypographyP from '@/components/ui/typography/p.astro';
+import type { HolidayEntry } from '@/services/api/getHolidayList/types';
+import { cn } from '@/styles/utils';
 
-import { inferHoliday } from "@/utils/inferHoliday";
+import { inferHoliday } from '@/utils/inferHoliday';
 
 type Props = {
-  closestHoliday: HolidayEntry;
+  title?: string;
+  containerClassName?: string;
+  data: HolidayEntry;
 };
 
-const { closestHoliday } = Astro.props;
-const parsedClosestHoliday = inferHoliday(closestHoliday.holiday_date);
+const { data, title, containerClassName } = Astro.props;
+const parsedClosestHoliday = inferHoliday(data.holiday_date);
 ---
 
-<Card className="bg-red-50 max-w-md mx-auto">
+<Card className={cn('bg-red-50 max-w-md mx-auto min-w-[240px]', containerClassName)}>
   <CardHeader>
     <CardDescription className="text-xs">
-      Hari Libur Terdekat Berikutnya
+      {title ?? 'Hari Libur Terdekat Berikutnya'}
     </CardDescription>
     <CardTitle className="text-xl lg:text-2xl">
-      {closestHoliday.holiday_name}
+      {data.holiday_name}
     </CardTitle>
   </CardHeader>
   <CardContent className="text-sm">
