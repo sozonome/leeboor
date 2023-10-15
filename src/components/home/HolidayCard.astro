@@ -22,18 +22,20 @@ const { data, title, containerClassName } = Astro.props;
 const parsedClosestHoliday = inferHoliday(data.holiday_date);
 ---
 
-<Card className={cn('bg-red-50 max-w-md mx-auto min-w-[240px]', containerClassName)}>
+<Card
+  className={cn('bg-red-50 max-w-md mx-auto min-w-[240px] text-center', containerClassName)}
+>
   <CardHeader>
-    <CardDescription className="text-xs">
+    <CardDescription className="text-xs md:text-sm lg:text-base">
       {title ?? 'Hari Libur Terdekat Berikutnya'}
     </CardDescription>
-    <CardTitle className="text-xl lg:text-2xl">
+    <CardTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
       {data.holiday_name}
     </CardTitle>
   </CardHeader>
-  <CardContent className="text-sm">
+  <CardContent className="text-xs md:text-sm lg:text-base">
     <TypographyP>{parsedClosestHoliday.formattedDate}</TypographyP>
-    <TypographyP className="text-red-500 text-xs">
+    <TypographyP className="text-red-500 leading-0">
       {parsedClosestHoliday.commentary}
     </TypographyP>
   </CardContent>
