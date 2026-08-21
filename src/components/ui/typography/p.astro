@@ -1,5 +1,5 @@
 ---
-import { cn } from "@/styles/utils";
+import { cn } from '@/styles/utils';
 
 type Props = {
   className?: string;
@@ -8,6 +8,6 @@ type Props = {
 const { className } = Astro.props;
 ---
 
-<p class={cn("leading-7 text-gray-500", className)}>
+<p class={cn('leading-7 text-gray-500', className)}>
   <slot />
 </p>

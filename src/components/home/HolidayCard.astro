@@ -23,7 +23,10 @@ const parsedClosestHoliday = inferHoliday(data.holiday_date);
 ---
 
 <Card
-  className={cn('bg-red-50 max-w-md mx-auto min-w-[240px] text-center', containerClassName)}
+  className={cn(
+    'bg-red-50 max-w-md mx-auto min-w-[240px] text-center',
+    containerClassName
+  )}
 >
   <CardHeader>
     <CardDescription className="text-xs md:text-sm lg:text-base">
