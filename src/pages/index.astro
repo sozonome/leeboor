@@ -13,10 +13,14 @@ const holidays = await getHolidays();
 const todayHoliday = await getTodayHoliday(holidays);
 const upcomingHolidays = await getUpcomingHolidays(holidays);
 // fallback for end of year
-const nextYearHolidays = await getHolidays({ year: new Date().getFullYear() + 1 });
+const nextYearHolidays = await getHolidays({
+  year: new Date().getFullYear() + 1,
+});
 const nextYearUpcomingHolidays = await getUpcomingHolidays(nextYearHolidays);
-const closestHoliday = [...upcomingHolidays, ...nextYearUpcomingHolidays].sort((a, b) => new Date(a.holiday_date).getTime() - new Date(b.holiday_date).getTime())[0];
-
+const closestHoliday = [...upcomingHolidays, ...nextYearUpcomingHolidays].sort(
+  (a, b) =>
+    new Date(a.holiday_date).getTime() - new Date(b.holiday_date).getTime()
+)[0];
 ---
 
 <MainLayout>
